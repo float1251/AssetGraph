@@ -41,7 +41,9 @@ namespace UnityEngine.AssetGraph
         {
             target.defaultSampleSettings = reference.defaultSampleSettings;
             target.forceToMono = reference.forceToMono;
-            target.preloadAudioData = reference.preloadAudioData;
+            var defaultSampleSettings = target.defaultSampleSettings;
+            defaultSampleSettings.preloadAudioData = reference.defaultSampleSettings.preloadAudioData;
+            target.defaultSampleSettings = defaultSampleSettings;
 
             foreach (var g in NodeGUIUtility.SupportedBuildTargetGroups) {
                 var platformName = BuildTargetUtility.TargetToAssetBundlePlatformName (g,
@@ -93,7 +95,7 @@ namespace UnityEngine.AssetGraph
                 return false;
             if (target.ambisonic != reference.ambisonic)
                 return false;
-            if (target.preloadAudioData != reference.preloadAudioData)
+            if (target.defaultSampleSettings.preloadAudioData != reference.defaultSampleSettings.preloadAudioData)
                 return false;
 
             return true;
